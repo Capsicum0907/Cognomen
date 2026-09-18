@@ -8,17 +8,21 @@ Client only. Minecraft 1.21.1, NeoForge 21.1.
 
 ## Use
 
-Open **Mods → Cognomen → Config** and type a name, or edit `config/cognomen-client.toml`:
+Open **Mods → Cognomen → Config**, or edit `config/cognomen-client.toml`:
 
 ```toml
 name = "Someone"
+skin = "config/cognomen/skin.png"
+slimArms = false
 ```
 
-The name takes effect from the next world you open. It starts as `Steve`.
+Both take effect from the next world you open. The name starts as `Steve`, and the skin starts empty, which means you look like Steve.
 
 A name follows the game's own rule for player names: 1 to 16 characters, each one a printable ASCII character other than a space (letters, digits and `` !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~ ``). An empty name, or one that breaks the rule, is not used; you play as `Steve` instead, and a notice says so. Letters, digits and `_` are the safe choice: they are what real account names use, and commands take them without quotes.
 
-With Cognomen installed, your account name and your account's skin are never used, and you look like Steve. To play as yourself, remove the mod.
+`skin` is a 64×64 PNG, given as a path from the game folder. `slimArms` puts it on the slim-armed model. If the file is missing, cannot be read as a PNG, or is another size, you look like Steve, and a notice says why.
+
+With Cognomen installed, your account name and your account's skin are never used. To play as yourself, remove the mod.
 
 ## How it works
 
@@ -27,7 +31,7 @@ The game keeps your account in one object for the whole session, and everything 
 What stays and what changes:
 
 - **Your UUID stays.** Your inventory, position, statistics and advancements are saved under it, so they are all still yours.
-- **What you look like is Steve.** Without a skin in the profile the game would pick a default one from your UUID; Cognomen makes that default Steve.
+- **What you look like is Steve, or the skin you set.** Without a skin in the profile the game would pick a default one from your UUID; Cognomen makes that default Steve, or your own PNG when one is set. That one place is where your look comes from, so it reaches your player, your player head and anything else that draws you.
 
 The game also remembers the last name each UUID joined under, and the first time you join under a new name it would announce you as "*new name* (formerly known as *old name*)". For the owner of a singleplayer world, that earlier name is never looked up.
 

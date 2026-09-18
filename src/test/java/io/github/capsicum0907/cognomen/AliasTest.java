@@ -88,4 +88,11 @@ class AliasTest {
     void thePlaceholderPassesTheLoginItself() {
         assertTrue(Alias.usable(Alias.PLACEHOLDER));
     }
+
+    @Test
+    void onlyA64By64ImageFitsAsASkin() {
+        assertTrue(Look.fits(64, 64));
+        assertFalse(Look.fits(64, 32));
+        assertFalse(Look.fits(128, 128));
+    }
 }

@@ -6,6 +6,8 @@ import com.llamalad7.mixinextras.sugar.Local;
 import java.util.Arrays;
 import java.util.UUID;
 
+import io.github.capsicum0907.cognomen.Look;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.client.resources.PlayerSkin;
@@ -26,9 +28,9 @@ abstract class DefaultPlayerSkinMixin {
         if (!id.equals(Minecraft.getInstance().getUser().getProfileId())) {
             return byHash;
         }
-        return Arrays.stream(DEFAULT_SKINS)
+        return Look.forAccount(Arrays.stream(DEFAULT_SKINS)
                 .filter(skin -> skin.texture().equals(DefaultPlayerSkin.getDefaultTexture()))
                 .findFirst()
-                .orElse(byHash);
+                .orElse(byHash));
     }
 }

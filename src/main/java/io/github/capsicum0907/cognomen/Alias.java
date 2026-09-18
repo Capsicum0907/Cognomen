@@ -2,6 +2,7 @@ package io.github.capsicum0907.cognomen;
 
 import com.mojang.authlib.GameProfile;
 
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.StringUtil;
 
 public final class Alias {
@@ -21,8 +22,12 @@ public final class Alias {
         }
         String configured = CognomenConfig.NAME.get();
         String resolved = resolve(configured);
-        if (!resolved.equals(configured)) {
-            Unusable.report(configured);
+        if (resolved.equals(configured)) {
+            Notices.settle(Notices.Topic.NAME);
+        } else {
+            Notices.report(Notices.Topic.NAME, configured, configured.isEmpty()
+                    ? Component.translatable("cognomen.toast.empty.message", PLACEHOLDER)
+                    : Component.translatable("cognomen.toast.unusable.message", configured, PLACEHOLDER));
         }
         return resolved;
     }

@@ -4,9 +4,17 @@
   "cognomen.configuration.section.cognomen.client.toml.title": "Cognomen",
   "cognomen.configuration.name": "Name",
   "cognomen.configuration.name.tooltip": "Used in singleplayer from the next world you open. 1 to 16 characters, no spaces, ASCII only; a name that breaks this plays under a stand-in name. Your account name is never used.",
-  "cognomen.toast.unusable.title": "Cognomen: name not used",
   "cognomen.toast.unusable.message": "\"%s\" is not a valid player name, so you are playing as \"%s\".",
   "cognomen.toast.empty.message": "No name is set, so you are playing as \"%s\".",
   "cognomen.multiplayer.title": "Multiplayer is off",
-  "cognomen.multiplayer.message": "While Cognomen is installed, multiplayer and Realms are unavailable: a server has to be told your account name to let you in. Remove the mod to play online."
+  "cognomen.multiplayer.message": "While Cognomen is installed, multiplayer and Realms are unavailable: a server has to be told your account name to let you in. Remove the mod to play online.",
+  "cognomen.toast.name.title": "Cognomen: name not used",
+  "cognomen.configuration.skin": "Skin",
+  "cognomen.configuration.skin.tooltip": "A 64×64 PNG, as a path from the game folder, for example config/cognomen/skin.png. Leave empty to look like Steve. Used from the next world you open.",
+  "cognomen.configuration.slimArms": "Slim arms",
+  "cognomen.configuration.slimArms.tooltip": "Put the skin on the slim-armed model instead of the wide one.",
+  "cognomen.toast.skin.title": "Cognomen: skin not used",
+  "cognomen.toast.skin.missing": "\"%s\" was not found, so you look like Steve.",
+  "cognomen.toast.skin.unreadable": "\"%s\" could not be read as a PNG, so you look like Steve.",
+  "cognomen.toast.skin.size": "\"%s\" is %s×%s, but a skin has to be %s×%s, so you look like Steve."
 }

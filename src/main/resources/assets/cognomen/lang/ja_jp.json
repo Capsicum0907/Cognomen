@@ -4,9 +4,17 @@
   "cognomen.configuration.section.cognomen.client.toml.title": "Cognomen",
   "cognomen.configuration.name": "名前",
   "cognomen.configuration.name.tooltip": "シングルプレイで、次に開くワールドから使われます。1〜16文字・空白なし・半角英数記号のみ。合わない名前は代わりの名前になります。アカウント名が使われることはありません。",
-  "cognomen.toast.unusable.title": "Cognomen：名前を使えません",
   "cognomen.toast.unusable.message": "「%s」はプレイヤー名に使えないため、「%s」として遊んでいます。",
   "cognomen.toast.empty.message": "名前が空欄のため、「%s」として遊んでいます。",
   "cognomen.multiplayer.title": "マルチプレイは使えません",
-  "cognomen.multiplayer.message": "Cognomen を入れている間は、マルチプレイと Realms を使えません。サーバーに入るには、アカウント名を伝える必要があるためです。オンラインで遊ぶときは Mod を外してください。"
+  "cognomen.multiplayer.message": "Cognomen を入れている間は、マルチプレイと Realms を使えません。サーバーに入るには、アカウント名を伝える必要があるためです。オンラインで遊ぶときは Mod を外してください。",
+  "cognomen.toast.name.title": "Cognomen：名前を使えません",
+  "cognomen.configuration.skin": "スキン",
+  "cognomen.configuration.skin.tooltip": "64×64 の PNG を、ゲームフォルダからの場所で指定します（例：config/cognomen/skin.png）。空欄なら Steve の見た目です。次に開くワールドから使われます。",
+  "cognomen.configuration.slimArms": "細い腕",
+  "cognomen.configuration.slimArms.tooltip": "スキンを、太い腕ではなく細い腕のモデルに貼ります。",
+  "cognomen.toast.skin.title": "Cognomen：スキンを使えません",
+  "cognomen.toast.skin.missing": "「%s」が見つからないため、Steve の見た目になっています。",
+  "cognomen.toast.skin.unreadable": "「%s」を PNG として読めないため、Steve の見た目になっています。",
+  "cognomen.toast.skin.size": "「%s」は %s×%s ですが、スキンは %s×%s でなければならないため、Steve の見た目になっています。"
 }

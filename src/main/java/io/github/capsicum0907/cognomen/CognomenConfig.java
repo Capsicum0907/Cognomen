@@ -8,6 +8,12 @@ public final class CognomenConfig {
     public static final ModConfigSpec.ConfigValue<String> NAME = BUILDER
             .define("name", Alias.PLACEHOLDER);
 
+    public static final ModConfigSpec.ConfigValue<String> SKIN = BUILDER
+            .define("skin", "");
+
+    public static final ModConfigSpec.BooleanValue SLIM_ARMS = BUILDER
+            .define("slimArms", false);
+
     public static final ModConfigSpec SPEC = BUILDER.build();
 
     private CognomenConfig() {
