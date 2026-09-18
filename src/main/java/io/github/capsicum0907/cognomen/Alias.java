@@ -1,0 +1,42 @@
+package io.github.capsicum0907.cognomen;
+
+import com.mojang.authlib.GameProfile;
+
+import java.util.Optional;
+
+import net.minecraft.util.StringUtil;
+
+public final class Alias {
+    private Alias() {
+    }
+
+    public static GameProfile apply(GameProfile account) {
+        return chosen().map(name -> rename(account, name)).orElse(account);
+    }
+
+    public static String name(String account) {
+        return chosen().orElse(account);
+    }
+
+    public static boolean usable(String name) {
+        return !name.isEmpty() && StringUtil.isValidPlayerName(name);
+    }
+
+    public static GameProfile rename(GameProfile account, String name) {
+        GameProfile renamed = new GameProfile(account.getId(), name);
+        renamed.getProperties().putAll(account.getProperties());
+        return renamed;
+    }
+
+    private static Optional<String> chosen() {
+        String name = CognomenConfig.NAME.get();
+        if (name.isEmpty()) {
+            return Optional.empty();
+        }
+        if (!usable(name)) {
+            Unusable.report(name);
+            return Optional.empty();
+        }
+        return Optional.of(name);
+    }
+}

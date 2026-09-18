@@ -1,0 +1,9 @@
+{
+  "cognomen.configuration.title": "Cognomen",
+  "cognomen.configuration.section.cognomen.client.toml": "Cognomen",
+  "cognomen.configuration.section.cognomen.client.toml.title": "Cognomen",
+  "cognomen.configuration.name": "Name",
+  "cognomen.configuration.name.tooltip": "Used in singleplayer from the next world you open. Up to 16 characters, no spaces, ASCII only. Leave empty to use your account name.",
+  "cognomen.toast.unusable.title": "Cognomen: name not used",
+  "cognomen.toast.unusable.message": "\"%s\" is not a valid player name, so your account name is showing."
+}

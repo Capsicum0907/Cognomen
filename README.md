@@ -1,0 +1,40 @@
+# Cognomen
+
+[日本語](README.ja.md)
+
+Play singleplayer under a name of your choosing instead of your account's. Made for recording and streaming: the name your Microsoft account carries never has to appear on screen, and you do not need a second account to keep it off.
+
+Client only. Minecraft 1.21.1, NeoForge 21.1.
+
+## Use
+
+Open **Mods → Cognomen → Config** and type a name, or edit `config/cognomen-client.toml`:
+
+```toml
+name = "Someone"
+```
+
+The name takes effect from the next world you open. Leave it empty to play under your account name.
+
+A name follows the game's own rule for player names: up to 16 characters, no spaces, ASCII only. If the one you set breaks that rule, it is not used, and a notice says your account name is showing.
+
+## How it works
+
+In singleplayer the game runs its own server inside the client, and hands it your account's profile when the world opens. Cognomen hands over a copy with the name replaced. Everything the server says about you afterwards is built from that copy, so it carries the new name without being patched one place at a time: chat, join and leave messages, death messages, advancements, command feedback, player heads, the author of a signed book, and the name shown to others when the world is opened to LAN.
+
+What stays the same:
+
+- **Your UUID.** Your inventory, position, statistics and advancements are saved under it, so they are all still yours.
+- **Your skin.** The copy carries your account's skin with it.
+
+The end poem, which reads the name straight from the account rather than from the server, is covered separately.
+
+## Worth knowing
+
+- **Singleplayer only.** On a server, the name comes from the server.
+- **Text already in a world keeps the name it was written with.** Signs you typed it on, books signed before, player heads, and scoreboard entries (which are kept by name) still show the account name.
+- **Log files still contain the account name.** `logs/latest.log` records it when the game starts. Do not share it if that matters.
+
+## License
+
+MIT
