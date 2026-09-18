@@ -3,7 +3,7 @@
   "cognomen.configuration.section.cognomen.client.toml": "Cognomen",
   "cognomen.configuration.section.cognomen.client.toml.title": "Cognomen",
   "cognomen.configuration.name": "名前",
-  "cognomen.configuration.name.tooltip": "シングルプレイで、次に開くワールドから使われます。16文字以内・空白なし・半角英数記号のみ。空欄ならアカウント名のままです。",
+  "cognomen.configuration.name.tooltip": "シングルプレイで、次に開くワールドから使われます。16文字以内・空白なし・半角英数記号のみ。合わない名前は、アカウント名ではなく代わりの名前になります。空欄ならアカウント名のままです。",
   "cognomen.toast.unusable.title": "Cognomen：名前を使えません",
-  "cognomen.toast.unusable.message": "「%s」はプレイヤー名に使えないため、アカウント名が表示されています。"
+  "cognomen.toast.unusable.message": "「%s」はプレイヤー名に使えないため、「%s」として遊んでいます。"
 }

@@ -7,6 +7,8 @@ import java.util.Optional;
 import net.minecraft.util.StringUtil;
 
 public final class Alias {
+    public static final String PLACEHOLDER = "player";
+
     private Alias() {
     }
 
@@ -22,6 +24,13 @@ public final class Alias {
         return !name.isEmpty() && StringUtil.isValidPlayerName(name);
     }
 
+    public static Optional<String> resolve(String configured) {
+        if (configured.isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(usable(configured) ? configured : PLACEHOLDER);
+    }
+
     public static GameProfile rename(GameProfile account, String name) {
         GameProfile renamed = new GameProfile(account.getId(), name);
         renamed.getProperties().putAll(account.getProperties());
@@ -29,14 +38,11 @@ public final class Alias {
     }
 
     private static Optional<String> chosen() {
-        String name = CognomenConfig.NAME.get();
-        if (name.isEmpty()) {
-            return Optional.empty();
+        String configured = CognomenConfig.NAME.get();
+        Optional<String> resolved = resolve(configured);
+        if (resolved.isPresent() && !resolved.get().equals(configured)) {
+            Unusable.report(configured);
         }
-        if (!usable(name)) {
-            Unusable.report(name);
-            return Optional.empty();
-        }
-        return Optional.of(name);
+        return resolved;
     }
 }

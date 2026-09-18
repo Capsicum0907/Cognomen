@@ -16,7 +16,7 @@ name = "Someone"
 
 The name takes effect from the next world you open. Leave it empty to play under your account name.
 
-A name follows the game's own rule for player names: up to 16 characters, no spaces, ASCII only. If the one you set breaks that rule, it is not used, and a notice says your account name is showing.
+A name follows the game's own rule for player names: 1 to 16 characters, each one a printable ASCII character other than a space (letters, digits and `!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~`). A name that breaks the rule is not used; you play as `player` instead, never under your account name, and a notice says so.
 
 ## How it works
 

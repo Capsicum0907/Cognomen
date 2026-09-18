@@ -17,12 +17,12 @@ final class Unusable {
     }
 
     static void report(String name) {
-        LOGGER.error("\"{}\" cannot be used as a player name, so the account name is in use", name);
+        LOGGER.error("\"{}\" cannot be used as a player name, so \"{}\" is in use", name, Alias.PLACEHOLDER);
         Minecraft minecraft = Minecraft.getInstance();
         minecraft.execute(() -> SystemToast.addOrUpdate(
                 minecraft.getToasts(),
                 TOAST,
                 Component.translatable("cognomen.toast.unusable.title"),
-                Component.translatable("cognomen.toast.unusable.message", name)));
+                Component.translatable("cognomen.toast.unusable.message", name, Alias.PLACEHOLDER)));
     }
 }
