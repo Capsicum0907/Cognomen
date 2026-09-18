@@ -33,7 +33,7 @@ The game also remembers the last name each UUID joined under, and the first time
 
 ## Multiplayer is off
 
-A server has to be told your account name to let you in, so while Cognomen is installed there is no multiplayer and no Realms. The Multiplayer button is gone from the title screen, and anything else that tries to connect gets a notice instead.
+A server has to be told your account name to let you in, so while Cognomen is installed there is no multiplayer and no Realms. The Multiplayer and Realms buttons are gone from the title screen, along with the Realms notifications beside them, and anything else that tries to connect gets a notice instead.
 
 ## Worth knowing
 

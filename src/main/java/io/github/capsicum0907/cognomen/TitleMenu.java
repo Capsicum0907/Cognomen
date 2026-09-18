@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.PlainTextButton;
@@ -15,28 +16,34 @@ import org.slf4j.Logger;
 
 final class TitleMenu {
     private static final Logger LOGGER = LogUtils.getLogger();
-    private static final String MULTIPLAYER_KEY = "menu.multiplayer";
+    private static final Set<String> ONLINE_KEYS = Set.of("menu.multiplayer", "menu.online");
 
     private TitleMenu() {
     }
 
-    static void withoutMultiplayer(ScreenEvent.Init.Post event) {
+    static void withoutOnlinePlay(ScreenEvent.Init.Post event) {
         if (!(event.getScreen() instanceof TitleScreen)) {
             return;
         }
+        for (String key : ONLINE_KEYS) {
+            remove(event, key);
+        }
+    }
+
+    private static void remove(ScreenEvent.Init.Post event, String key) {
         List<AbstractWidget> widgets = event.getListenersList().stream()
                 .filter(AbstractWidget.class::isInstance)
                 .map(AbstractWidget.class::cast)
                 .toList();
-        Optional<AbstractWidget> multiplayer = widgets.stream()
+        Optional<AbstractWidget> found = widgets.stream()
                 .filter(widget -> widget.getMessage().getContents() instanceof TranslatableContents contents
-                        && contents.getKey().equals(MULTIPLAYER_KEY))
+                        && contents.getKey().equals(key))
                 .findFirst();
-        if (multiplayer.isEmpty()) {
-            LOGGER.warn("The title screen has no multiplayer button to remove");
+        if (found.isEmpty()) {
+            LOGGER.warn("The title screen has no \"{}\" button to remove", key);
             return;
         }
-        AbstractWidget removed = multiplayer.get();
+        AbstractWidget removed = found.get();
         List<AbstractWidget> below = widgets.stream()
                 .filter(widget -> widget.getY() > removed.getY() && !(widget instanceof PlainTextButton))
                 .toList();

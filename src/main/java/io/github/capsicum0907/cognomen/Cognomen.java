@@ -15,6 +15,6 @@ public final class Cognomen {
     public Cognomen(ModContainer container) {
         container.registerConfig(ModConfig.Type.CLIENT, CognomenConfig.SPEC);
         container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
-        NeoForge.EVENT_BUS.addListener(TitleMenu::withoutMultiplayer);
+        NeoForge.EVENT_BUS.addListener(TitleMenu::withoutOnlinePlay);
     }
 }
