@@ -5,7 +5,8 @@ import com.mojang.authlib.GameProfile;
 import net.minecraft.util.StringUtil;
 
 public final class Alias {
-    public static final String PLACEHOLDER = "player";
+    public static final String PLACEHOLDER = "Steve";
+    public static final String SKIN_PROPERTY = "textures";
 
     private Alias() {
     }
@@ -36,7 +37,9 @@ public final class Alias {
 
     public static GameProfile rename(GameProfile account, String name) {
         GameProfile renamed = new GameProfile(account.getId(), name);
-        renamed.getProperties().putAll(account.getProperties());
+        account.getProperties().entries().stream()
+                .filter(entry -> !entry.getKey().equals(SKIN_PROPERTY))
+                .forEach(entry -> renamed.getProperties().put(entry.getKey(), entry.getValue()));
         return renamed;
     }
 }

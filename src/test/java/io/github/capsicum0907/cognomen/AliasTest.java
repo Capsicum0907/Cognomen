@@ -17,7 +17,7 @@ class AliasTest {
 
     private static GameProfile account() {
         GameProfile profile = new GameProfile(ID, "AccountName");
-        profile.getProperties().put("textures", new Property("textures", "payload", "signature"));
+        profile.getProperties().put("textures", new Property(Alias.SKIN_PROPERTY, "payload", "signature"));
         return profile;
     }
 
@@ -32,10 +32,15 @@ class AliasTest {
     }
 
     @Test
-    void renameKeepsTheSkin() {
-        Property textures = Alias.rename(account(), "Someone").getProperties().get("textures").iterator().next();
-        assertEquals("payload", textures.value());
-        assertEquals("signature", textures.signature());
+    void renameDropsTheAccountSkin() {
+        assertTrue(Alias.rename(account(), "Someone").getProperties().get(Alias.SKIN_PROPERTY).isEmpty());
+    }
+
+    @Test
+    void renameKeepsEveryOtherProperty() {
+        GameProfile account = account();
+        account.getProperties().put("other", new Property("other", "kept"));
+        assertEquals("kept", Alias.rename(account, "Someone").getProperties().get("other").iterator().next().value());
     }
 
     @Test

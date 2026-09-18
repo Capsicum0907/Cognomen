@@ -14,20 +14,20 @@ Open **Mods → Cognomen → Config** and type a name, or edit `config/cognomen-
 name = "Someone"
 ```
 
-The name takes effect from the next world you open. It starts as `player`.
+The name takes effect from the next world you open. It starts as `Steve`.
 
-A name follows the game's own rule for player names: 1 to 16 characters, each one a printable ASCII character other than a space (letters, digits and `` !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~ ``). An empty name, or one that breaks the rule, is not used; you play as `player` instead, and a notice says so. Letters, digits and `_` are the safe choice: they are what real account names use, and commands take them without quotes.
+A name follows the game's own rule for player names: 1 to 16 characters, each one a printable ASCII character other than a space (letters, digits and `` !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~ ``). An empty name, or one that breaks the rule, is not used; you play as `Steve` instead, and a notice says so. Letters, digits and `_` are the safe choice: they are what real account names use, and commands take them without quotes.
 
-With Cognomen installed, your account name is never used. To play under it, remove the mod.
+With Cognomen installed, your account name and your account's skin are never used, and you look like Steve. To play as yourself, remove the mod.
 
 ## How it works
 
-The game keeps your account in one object for the whole session, and everything that wants your name asks it or asks for your profile. Cognomen answers both with the chosen name. The rest follows without being patched one place at a time: the world you play in, chat, join and leave messages, death messages, advancements, command feedback, player heads, the author of a signed book, the end poem, the name shown to others when the world is opened to LAN, and any other mod that reads your name from the game.
+The game keeps your account in one object for the whole session, and everything that wants your name asks it or asks for your profile. Cognomen answers both with the chosen name, and leaves your account's skin and cape out of the profile. The rest follows without being patched one place at a time: the world you play in, chat, join and leave messages, death messages, advancements, command feedback, player heads, the author of a signed book, the end poem, the name shown to others when the world is opened to LAN, and any other mod that reads your name from the game.
 
-What stays the same:
+What stays and what changes:
 
-- **Your UUID.** Your inventory, position, statistics and advancements are saved under it, so they are all still yours.
-- **Your skin.** The profile carries your account's skin with it.
+- **Your UUID stays.** Your inventory, position, statistics and advancements are saved under it, so they are all still yours.
+- **What you look like is Steve.** Without a skin in the profile the game would pick a default one from your UUID; Cognomen makes that default Steve.
 
 The game also remembers the last name each UUID joined under, and the first time you join under a new name it would announce you as "*new name* (formerly known as *old name*)". For the owner of a singleplayer world, that earlier name is never looked up.
 
