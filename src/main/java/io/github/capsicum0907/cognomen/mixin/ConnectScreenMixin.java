@@ -20,7 +20,7 @@ abstract class ConnectScreenMixin {
     private static void cognomen$noMultiplayer(
             Screen parent, Minecraft minecraft, ServerAddress address, ServerData data,
             boolean quickPlay, TransferState transfer, CallbackInfo ci) {
-        minecraft.setScreen(Offline.notice(parent));
+        minecraft.setScreen(Offline.notice());
         ci.cancel();
     }
 }

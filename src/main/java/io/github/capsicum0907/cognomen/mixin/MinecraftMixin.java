@@ -12,15 +12,11 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(Minecraft.class)
 abstract class MinecraftMixin {
-    @Shadow
-    public Screen screen;
-
     @ModifyReturnValue(method = "getGameProfile", at = @At("RETURN"))
     private GameProfile cognomen$alias(GameProfile account) {
         return Alias.apply(account);
@@ -29,7 +25,7 @@ abstract class MinecraftMixin {
     @ModifyVariable(method = "setScreen", at = @At("HEAD"), argsOnly = true)
     private Screen cognomen$noMultiplayer(Screen next) {
         if (next instanceof JoinMultiplayerScreen || next instanceof RealmsMainScreen) {
-            return Offline.notice(this.screen);
+            return Offline.notice();
         }
         return next;
     }
