@@ -1,0 +1,46 @@
+name: Build
+
+on:
+  workflow_dispatch:
+  push:
+    paths-ignore:
+      - '**.md'
+      - 'LICENSE'
+      - '.gitignore'
+  pull_request:
+    paths-ignore:
+      - '**.md'
+      - 'LICENSE'
+      - '.gitignore'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Build and run the unit tests
+        run: bash gradlew build
+
+      - name: Check that the unit tests ran
+        run: |
+          count=$(cat build/test-results/test/*.xml 2>/dev/null | grep -o 'tests="[0-9]*"' | awk -F'"' '{ sum += $2 } END { print sum + 0 }')
+          if [ "$count" -eq 0 ]; then
+            echo "::error::No unit test results were found - the build passed without testing anything."
+            exit 1
+          fi
+          echo "$count unit tests ran."
