@@ -6,5 +6,7 @@
   "cognomen.configuration.name.tooltip": "Used in singleplayer from the next world you open. 1 to 16 characters, no spaces, ASCII only; a name that breaks this plays under a stand-in name. Your account name is never used.",
   "cognomen.toast.unusable.title": "Cognomen: name not used",
   "cognomen.toast.unusable.message": "\"%s\" is not a valid player name, so you are playing as \"%s\".",
-  "cognomen.toast.empty.message": "No name is set, so you are playing as \"%s\"."
+  "cognomen.toast.empty.message": "No name is set, so you are playing as \"%s\".",
+  "cognomen.multiplayer.title": "Multiplayer is off",
+  "cognomen.multiplayer.message": "While Cognomen is installed, multiplayer and Realms are unavailable: a server has to be told your account name to let you in. Remove the mod to play online."
 }

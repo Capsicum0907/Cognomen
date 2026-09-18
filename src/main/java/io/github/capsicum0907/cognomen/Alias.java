@@ -15,6 +15,9 @@ public final class Alias {
     }
 
     public static String current() {
+        if (!CognomenConfig.SPEC.isLoaded()) {
+            return PLACEHOLDER;
+        }
         String configured = CognomenConfig.NAME.get();
         String resolved = resolve(configured);
         if (!resolved.equals(configured)) {

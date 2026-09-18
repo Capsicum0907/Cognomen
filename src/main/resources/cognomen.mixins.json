@@ -4,10 +4,11 @@
   "package": "io.github.capsicum0907.cognomen.mixin",
   "compatibilityLevel": "JAVA_21",
   "client": [
-    "IntegratedServerMixin",
+    "ConnectScreenMixin",
     "MinecraftMixin",
     "PlayerListMixin",
-    "WinScreenMixin"
+    "RealmsConnectMixin",
+    "UserMixin"
   ],
   "injectors": {
     "defaultRequire": 1

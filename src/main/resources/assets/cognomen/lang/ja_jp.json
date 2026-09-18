@@ -6,5 +6,7 @@
   "cognomen.configuration.name.tooltip": "シングルプレイで、次に開くワールドから使われます。1〜16文字・空白なし・半角英数記号のみ。合わない名前は代わりの名前になります。アカウント名が使われることはありません。",
   "cognomen.toast.unusable.title": "Cognomen：名前を使えません",
   "cognomen.toast.unusable.message": "「%s」はプレイヤー名に使えないため、「%s」として遊んでいます。",
-  "cognomen.toast.empty.message": "名前が空欄のため、「%s」として遊んでいます。"
+  "cognomen.toast.empty.message": "名前が空欄のため、「%s」として遊んでいます。",
+  "cognomen.multiplayer.title": "マルチプレイは使えません",
+  "cognomen.multiplayer.message": "Cognomen を入れている間は、マルチプレイと Realms を使えません。サーバーに入るには、アカウント名を伝える必要があるためです。オンラインで遊ぶときは Mod を外してください。"
 }

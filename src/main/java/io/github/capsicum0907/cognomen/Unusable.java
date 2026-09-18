@@ -13,10 +13,16 @@ final class Unusable {
     private static final long SHOWN_FOR_MILLIS = 15000L;
     private static final SystemToast.SystemToastId TOAST = new SystemToast.SystemToastId(SHOWN_FOR_MILLIS);
 
+    private static volatile String reported;
+
     private Unusable() {
     }
 
     static void report(String name) {
+        if (name.equals(reported)) {
+            return;
+        }
+        reported = name;
         LOGGER.error("\"{}\" cannot be used as a player name, so \"{}\" is in use", name, Alias.PLACEHOLDER);
         Minecraft minecraft = Minecraft.getInstance();
         minecraft.execute(() -> SystemToast.addOrUpdate(

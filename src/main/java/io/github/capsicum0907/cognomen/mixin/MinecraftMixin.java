@@ -1,25 +1,36 @@
 package io.github.capsicum0907.cognomen.mixin;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import com.mojang.authlib.GameProfile;
+import com.mojang.realmsclient.RealmsMainScreen;
+
+import io.github.capsicum0907.cognomen.Alias;
+import io.github.capsicum0907.cognomen.Offline;
+
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.server.IntegratedServer;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(Minecraft.class)
 abstract class MinecraftMixin {
     @Shadow
-    private IntegratedServer singleplayerServer;
+    public Screen screen;
 
-    @ModifyArg(
-            method = "doWorldLoad",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/network/protocol/login/ServerboundHelloPacket;<init>(Ljava/lang/String;Ljava/util/UUID;)V"),
-            index = 0)
-    private String cognomen$helloAsTheServerKnowsUs(String account) {
-        return this.singleplayerServer.getSingleplayerProfile().getName();
+    @ModifyReturnValue(method = "getGameProfile", at = @At("RETURN"))
+    private GameProfile cognomen$alias(GameProfile account) {
+        return Alias.apply(account);
+    }
+
+    @ModifyVariable(method = "setScreen", at = @At("HEAD"), argsOnly = true)
+    private Screen cognomen$noMultiplayer(Screen next) {
+        if (next instanceof JoinMultiplayerScreen || next instanceof RealmsMainScreen) {
+            return Offline.notice(this.screen);
+        }
+        return next;
     }
 }
