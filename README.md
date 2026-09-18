@@ -14,9 +14,9 @@ Open **Mods → Cognomen → Config** and type a name, or edit `config/cognomen-
 name = "Someone"
 ```
 
-The name takes effect from the next world you open. Leave it empty to play under your account name.
+The name takes effect from the next world you open. It starts as `player`. With Cognomen installed, singleplayer never uses your account name; to play under it, remove the mod.
 
-A name follows the game's own rule for player names: 1 to 16 characters, each one a printable ASCII character other than a space (letters, digits and `` !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~ ``). A name that breaks the rule is not used; you play as `player` instead, never under your account name, and a notice says so.
+A name follows the game's own rule for player names: 1 to 16 characters, each one a printable ASCII character other than a space (letters, digits and `` !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~ ``). An empty name, or one that breaks the rule, is not used; you play as `player` instead, and a notice says so.
 
 ## How it works
 
@@ -33,7 +33,7 @@ Two places are covered separately. The end poem reads the name straight from the
 
 - **Singleplayer only.** On a server, the name comes from the server.
 - **Text already in a world keeps the name it was written with.** Signs you typed it on, books signed before, player heads, and scoreboard entries (which are kept by name) still show the account name.
-- **Log files still contain the account name.** `logs/latest.log` records it when the game starts. Do not share it if that matters.
+- **Log files still contain the account name.** The launcher passes it to the game as `--username`, and the first lines of `logs/latest.log` and `logs/debug.log` record the launch arguments before any mod is loaded, so no mod can keep it out. The game then records it once more as `Setting user:`. Do not share these files if that matters.
 
 ## License
 

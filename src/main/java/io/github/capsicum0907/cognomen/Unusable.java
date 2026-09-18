@@ -23,6 +23,8 @@ final class Unusable {
                 minecraft.getToasts(),
                 TOAST,
                 Component.translatable("cognomen.toast.unusable.title"),
-                Component.translatable("cognomen.toast.unusable.message", name, Alias.PLACEHOLDER)));
+                name.isEmpty()
+                        ? Component.translatable("cognomen.toast.empty.message", Alias.PLACEHOLDER)
+                        : Component.translatable("cognomen.toast.unusable.message", name, Alias.PLACEHOLDER)));
     }
 }

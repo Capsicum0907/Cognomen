@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 
-import java.util.Optional;
 import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
@@ -64,20 +63,20 @@ class AliasTest {
     }
 
     @Test
-    void anEmptyNameLeavesTheAccountNameInPlace() {
-        assertEquals(Optional.empty(), Alias.resolve(""));
+    void anEmptyNameFallsBackToThePlaceholderNotTheAccount() {
+        assertEquals(Alias.PLACEHOLDER, Alias.resolve(""));
     }
 
     @Test
     void aUsableNameIsUsedAsItIs() {
-        assertEquals(Optional.of("Someone"), Alias.resolve("Someone"));
+        assertEquals("Someone", Alias.resolve("Someone"));
     }
 
     @Test
     void anUnusableNameFallsBackToThePlaceholderNotTheAccount() {
-        assertEquals(Optional.of(Alias.PLACEHOLDER), Alias.resolve("two words"));
-        assertEquals(Optional.of(Alias.PLACEHOLDER), Alias.resolve("seventeen_chars17"));
-        assertEquals(Optional.of(Alias.PLACEHOLDER), Alias.resolve("名前"));
+        assertEquals(Alias.PLACEHOLDER, Alias.resolve("two words"));
+        assertEquals(Alias.PLACEHOLDER, Alias.resolve("seventeen_chars17"));
+        assertEquals(Alias.PLACEHOLDER, Alias.resolve("名前"));
     }
 
     @Test

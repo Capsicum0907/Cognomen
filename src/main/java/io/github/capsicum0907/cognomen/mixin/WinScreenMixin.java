@@ -20,6 +20,6 @@ abstract class WinScreenMixin {
             index = 1)
     private String cognomen$poemName(String account) {
         IntegratedServer server = Minecraft.getInstance().getSingleplayerServer();
-        return server != null ? server.getSingleplayerProfile().getName() : Alias.name(account);
+        return server != null ? server.getSingleplayerProfile().getName() : Alias.current();
     }
 }
