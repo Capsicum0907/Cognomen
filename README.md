@@ -27,7 +27,7 @@ What stays the same:
 - **Your UUID.** Your inventory, position, statistics and advancements are saved under it, so they are all still yours.
 - **Your skin.** The copy carries your account's skin with it.
 
-The end poem, which reads the name straight from the account rather than from the server, is covered separately.
+Two places are covered separately. The end poem reads the name straight from the account rather than from the server. And the game remembers the last name each UUID joined under, so the first time you join under a new name it would announce you as "*new name* (formerly known as *old name*)"; for the owner of a singleplayer world, that earlier name is never looked up.
 
 ## Worth knowing
 
