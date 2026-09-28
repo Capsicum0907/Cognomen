@@ -6,6 +6,13 @@
 
 クライアント専用。Minecraft 1.21.1 / NeoForge 21.1。
 
+## スクリーンショット
+
+![Someone という名前でチャットしているところ](branding/gallery/01-someone.png)
+
+他の絵は [branding/gallery](branding/gallery) にあります。説明は
+[captions.md](branding/gallery/captions.md) です。
+
 ## 使い方
 
 **Mods → Cognomen → 設定**を開くか、`config/cognomen-client.toml` を書き換えます。

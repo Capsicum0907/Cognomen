@@ -6,6 +6,13 @@ Play under a name of your choosing instead of your account's. Made for recording
 
 Client only. Minecraft 1.21.1, NeoForge 21.1.
 
+## Screenshots
+
+![Someone](branding/gallery/01-someone.png)
+
+The rest are in [branding/gallery](branding/gallery), with their captions in
+[captions.md](branding/gallery/captions.md).
+
 ## Use
 
 Open **Mods → Cognomen → Config**, or edit `config/cognomen-client.toml`:
