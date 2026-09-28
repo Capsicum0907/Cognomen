@@ -18,7 +18,9 @@ slimArms = false
 
 Both take effect from the next world you open. The name starts as `Steve`, and the skin starts empty, which means you look like Steve.
 
-A name follows the game's own rule for player names: 1 to 16 characters, each one a printable ASCII character other than a space (letters, digits and `` !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~ ``). An empty name, or one that breaks the rule, is not used; you play as `Steve` instead, and a notice says so. Letters, digits and `_` are the safe choice: they are what real account names use, and commands take them without quotes.
+A name is 1 to 16 characters, with no spaces and no formatting codes. Any script is allowed, Japanese included: the game's own rule for player names is printable ASCII only, and Cognomen lifts it at the one place the name is checked. The limit counts characters, not bytes, so 16 Japanese characters fit. An empty name, or one that breaks the rule, is not used; you play as `Steve` instead, and a notice says so. The config file is read and written as UTF-8, so edit it in an editor that saves UTF-8, or use the config screen.
+
+Letters, digits and `_` are the safe choice if you type commands. A command that takes a player name reads letters, digits, `_`, `-`, `.` and `+` as they are; any other name has to be quoted, as in `/tp "名前" ~ ~ ~`. `@s` and `@p` work whatever the name is.
 
 `skin` is a 64×64 PNG, given as a path from the game folder. `slimArms` puts it on the slim-armed model. If the file is missing, cannot be read as a PNG, or is another size, you look like Steve, and a notice says why.
 

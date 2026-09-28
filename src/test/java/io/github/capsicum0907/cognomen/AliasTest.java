@@ -10,6 +10,9 @@ import com.mojang.authlib.properties.Property;
 
 import java.util.UUID;
 
+import net.minecraft.ChatFormatting;
+import net.minecraft.util.StringUtil;
+
 import org.junit.jupiter.api.Test;
 
 class AliasTest {
@@ -53,18 +56,50 @@ class AliasTest {
     }
 
     @Test
-    void usableAcceptsWhatTheLoginAccepts() {
+    void usableAcceptsAnyScript() {
         assertTrue(Alias.usable("Someone"));
         assertTrue(Alias.usable("a"));
         assertTrue(Alias.usable("sixteen_chars_16"));
+        assertTrue(Alias.usable("名前"));
+        assertTrue(Alias.usable("かぼちゃ"));
     }
 
     @Test
-    void usableRejectsWhatTheLoginRejects() {
+    void usableStillAcceptsEverySingleCharacterTheGameWould() {
+        for (char character = '!'; character <= '~'; character++) {
+            assertTrue(Alias.usable(String.valueOf(character)), String.valueOf(character));
+        }
+    }
+
+    @Test
+    void usableCountsCharactersNotBytes() {
+        assertTrue(Alias.usable("あ".repeat(Alias.LENGTH)));
+        assertFalse(Alias.usable("あ".repeat(Alias.LENGTH + 1)));
+    }
+
+    @Test
+    void usableRejectsEmptyAndTooLong() {
         assertFalse(Alias.usable(""));
         assertFalse(Alias.usable("seventeen_chars17"));
+    }
+
+    @Test
+    void theOnlyNameTheGameAcceptsAndCognomenDoesNotIsTheEmptyOne() {
+        assertTrue(StringUtil.isValidPlayerName(""));
+        assertFalse(Alias.usable(""));
+    }
+
+    @Test
+    void usableRejectsWhitespaceOfEveryWidth() {
         assertFalse(Alias.usable("two words"));
-        assertFalse(Alias.usable("名前"));
+        assertFalse(Alias.usable("tab\there"));
+        assertFalse(Alias.usable("全　角"));
+    }
+
+    @Test
+    void usableRejectsFormattingAndControlCharacters() {
+        assertFalse(Alias.usable(ChatFormatting.PREFIX_CODE + "cRed"));
+        assertFalse(Alias.usable("two\nlines"));
     }
 
     @Test
@@ -81,11 +116,15 @@ class AliasTest {
     void anUnusableNameFallsBackToThePlaceholderNotTheAccount() {
         assertEquals(Alias.PLACEHOLDER, Alias.resolve("two words"));
         assertEquals(Alias.PLACEHOLDER, Alias.resolve("seventeen_chars17"));
-        assertEquals(Alias.PLACEHOLDER, Alias.resolve("名前"));
     }
 
     @Test
-    void thePlaceholderPassesTheLoginItself() {
+    void aJapaneseNameIsUsedAsItIs() {
+        assertEquals("名前", Alias.resolve("名前"));
+    }
+
+    @Test
+    void thePlaceholderIsUsableItself() {
         assertTrue(Alias.usable(Alias.PLACEHOLDER));
     }
 
