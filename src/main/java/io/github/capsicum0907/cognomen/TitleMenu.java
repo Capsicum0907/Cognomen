@@ -10,7 +10,10 @@ import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.PlainTextButton;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.network.chat.contents.TranslatableContents;
+//? if neoforge {
 import net.neoforged.neoforge.client.event.ScreenEvent;
+//?} else if forge
+/*import net.minecraftforge.client.event.ScreenEvent;*/
 
 import org.slf4j.Logger;
 
@@ -44,11 +47,30 @@ final class TitleMenu {
             return;
         }
         AbstractWidget removed = found.get();
+        event.removeListener(removed);
+        List<AbstractWidget> row = widgets.stream()
+                .filter(widget -> widget.getY() == removed.getY())
+                .toList();
+        if (row.size() > 1) {
+            widen(row, removed);
+            return;
+        }
         List<AbstractWidget> below = widgets.stream()
                 .filter(widget -> widget.getY() > removed.getY() && !(widget instanceof PlainTextButton))
                 .toList();
-        int row = below.stream().mapToInt(widget -> widget.getY() - removed.getY()).min().orElse(0);
-        event.removeListener(removed);
-        below.forEach(widget -> widget.setY(widget.getY() - row));
+        int gap = below.stream().mapToInt(widget -> widget.getY() - removed.getY()).min().orElse(0);
+        below.forEach(widget -> widget.setY(widget.getY() - gap));
+    }
+
+    private static void widen(List<AbstractWidget> row, AbstractWidget removed) {
+        List<AbstractWidget> left = row.stream().filter(widget -> widget != removed).toList();
+        if (left.size() != 1) {
+            return;
+        }
+        int start = row.stream().mapToInt(AbstractWidget::getX).min().orElseThrow();
+        int end = row.stream().mapToInt(widget -> widget.getX() + widget.getWidth()).max().orElseThrow();
+        AbstractWidget kept = left.get(0);
+        kept.setX(start);
+        kept.setWidth(end - start);
     }
 }

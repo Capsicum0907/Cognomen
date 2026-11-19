@@ -46,7 +46,10 @@ class AliasTest {
     void renameKeepsEveryOtherProperty() {
         GameProfile account = account();
         account.getProperties().put("other", new Property("other", "kept"));
+        //? if >=1.20.2 {
         assertEquals("kept", Alias.rename(account, "Someone").getProperties().get("other").iterator().next().value());
+        //?} else
+        /*assertEquals("kept", Alias.rename(account, "Someone").getProperties().get("other").iterator().next().getValue());*/
     }
 
     @Test

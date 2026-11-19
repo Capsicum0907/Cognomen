@@ -79,6 +79,8 @@ public final class SettingsScreen extends Screen {
 
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+        //? if <1.20.2
+        /*renderBackground(graphics);*/
         super.render(graphics, mouseX, mouseY, partialTick);
         int left = left();
         int top = top();

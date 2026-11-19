@@ -1,0 +1,20 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "io.github.capsicum0907.cognomen.mixin",
+  "refmap": "${mod_id}.refmap.json",
+  "compatibilityLevel": "${mixin_java}",
+  "client": [
+    "ConnectScreenMixin",
+    "DefaultPlayerSkinMixin",
+    "MinecraftMixin",
+    "PlayerListMixin",
+    "RealmsConnectMixin",
+    "ServerLoginPacketListenerImplMixin",
+    "TitleScreenMixin",
+    "UserMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
