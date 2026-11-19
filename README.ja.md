@@ -4,7 +4,23 @@
 
 アカウントの名前ではなく、自分で決めた名前で遊ぶための Mod です。実況・配信の録画向けで、Microsoft アカウントに紐づいた名前を画面に出さずに済みます。そのために2つ目のアカウントを買う必要もありません。
 
-クライアント専用。Minecraft 1.21.1 / NeoForge 21.1。
+クライアント専用。
+
+| Minecraft | ローダー | Java |
+|---|---|---|
+| 1.21.1 | NeoForge 21.1 | 21 |
+| 1.21.1 | Fabric Loader 0.16 以降 | 21 |
+| 1.20.1 | Forge 47 以降 | 17 |
+| 1.20.1 | Fabric Loader 0.15 以降 | 17 |
+| 1.19.2 | Forge 43 以降 | 17 |
+| 1.19.2 | Fabric Loader 0.14 以降 | 17 |
+| 1.18.2 | Forge 40 以降 | 17 |
+| 1.18.2 | Fabric Loader 0.14 以降 | 17 |
+| 1.16.5 | Forge 36 以降 | 8 |
+| 1.16.5 | Fabric Loader 0.11 以降 | 8 |
+
+ほかに必要なものはありません。Fabric でも Fabric API は要りません。組み合わせごとに jar が分かれていて、名前は
+`cognomen-<ローダー>-<Minecraft>-<バージョン>.jar` です。
 
 ## スクリーンショット
 
@@ -15,7 +31,9 @@
 
 ## 使い方
 
-**Mods → Cognomen → 設定**を開くか、`config/cognomen-client.toml` を書き換えます。
+設定画面を開くか、`config/cognomen-client.toml` を書き換えます。Forge と NeoForge では
+**Mods → Cognomen → 設定**から開きます。Fabric では Mod Menu を入れていればその一覧から開けます。
+入れていないときはファイルを書き換えてください。
 
 ```toml
 name = "Someone"

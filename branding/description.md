@@ -2,7 +2,7 @@ Cognomen lets you play under a name and a skin of your choosing instead of your 
 
 ## Your name
 
-Set a name under Mods → Cognomen → Config, or in `config/cognomen-client.toml`:
+Set a name in the config screen (Mods → Cognomen → Config on Forge and NeoForge, Mod Menu on Fabric), or in `config/cognomen-client.toml`:
 
 ```toml
 name = "Someone"
@@ -43,7 +43,7 @@ Your UUID is untouched. Inventories, positions, statistics and advancements are 
 
 ## Requirements
 
-NeoForge 21.1.x on Minecraft 1.21.1. Client only. MIT licensed.
+Minecraft 1.21.1 on NeoForge or Fabric; 1.20.1, 1.19.2, 1.18.2 and 1.16.5 on Forge or Fabric. Client only. Nothing else is needed, Fabric API included; on Fabric the config screen is reached through Mod Menu when it is installed. MIT licensed.
 
 ---
 
@@ -53,7 +53,7 @@ Cognomen は、アカウントの名前とスキンではなく、自分で決�
 
 ## 名前
 
-Mods → Cognomen → 設定か、`config/cognomen-client.toml` で名前を決めます。
+設定画面（Forge と NeoForge では Mods → Cognomen → 設定、Fabric では Mod Menu から）か、`config/cognomen-client.toml` で名前を決めます。
 
 ```toml
 name = "Someone"
@@ -94,4 +94,4 @@ UUID は変えません。持ち物・位置・統計・進捗はこの番号で
 
 ## 動作環境
 
-Minecraft 1.21.1 の NeoForge 21.1.x。クライアント専用。MIT ライセンス。
+Minecraft 1.21.1 の NeoForge と Fabric、1.20.1・1.19.2・1.18.2・1.16.5 の Forge と Fabric。クライアント専用。ほかに必要な Mod はありません（Fabric API も不要）。Fabric では、Mod Menu を入れていればそこから設定画面を開けます。MIT ライセンス。

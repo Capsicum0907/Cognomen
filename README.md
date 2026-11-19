@@ -4,7 +4,23 @@
 
 Play under a name of your choosing instead of your account's. Made for recording and streaming: the name your Microsoft account carries never has to appear on screen, and you do not need a second account to keep it off.
 
-Client only. Minecraft 1.21.1, NeoForge 21.1.
+Client only.
+
+| Minecraft | Loader | Java |
+|---|---|---|
+| 1.21.1 | NeoForge 21.1 | 21 |
+| 1.21.1 | Fabric Loader 0.16 or later | 21 |
+| 1.20.1 | Forge 47 or later | 17 |
+| 1.20.1 | Fabric Loader 0.15 or later | 17 |
+| 1.19.2 | Forge 43 or later | 17 |
+| 1.19.2 | Fabric Loader 0.14 or later | 17 |
+| 1.18.2 | Forge 40 or later | 17 |
+| 1.18.2 | Fabric Loader 0.14 or later | 17 |
+| 1.16.5 | Forge 36 or later | 8 |
+| 1.16.5 | Fabric Loader 0.11 or later | 8 |
+
+Nothing else is needed; on Fabric that includes Fabric API. Each pair has its own jar, named
+`cognomen-<loader>-<minecraft>-<version>.jar`.
 
 ## Screenshots
 
@@ -15,7 +31,9 @@ The rest are in [branding/gallery](branding/gallery), with their captions in
 
 ## Use
 
-Open **Mods → Cognomen → Config**, or edit `config/cognomen-client.toml`:
+Open the config screen, or edit `config/cognomen-client.toml`. On Forge and NeoForge the screen is under
+**Mods → Cognomen → Config**. On Fabric it is in Mod Menu's list when Mod Menu is installed; without it,
+edit the file.
 
 ```toml
 name = "Someone"
