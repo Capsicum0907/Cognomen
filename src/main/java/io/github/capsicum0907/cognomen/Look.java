@@ -61,7 +61,10 @@ public final class Look {
     }
 
     public static boolean isAccount(UUID id) {
+        //? if >=1.19 {
         return id.equals(Minecraft.getInstance().getUser().getProfileId());
+        //?} else
+        /*return id.equals(Minecraft.getInstance().getUser().getGameProfile().getId());*/
     }
 
     @Nullable

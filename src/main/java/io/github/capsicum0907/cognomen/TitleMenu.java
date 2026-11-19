@@ -9,7 +9,10 @@ import java.util.Set;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.PlainTextButton;
 import net.minecraft.client.gui.screens.TitleScreen;
+//? if >=1.19 {
 import net.minecraft.network.chat.contents.TranslatableContents;
+//?} else
+/*import net.minecraft.network.chat.TranslatableComponent;*/
 //? if neoforge {
 import net.neoforged.neoforge.client.event.ScreenEvent;
 //?} else if forge
@@ -39,8 +42,7 @@ final class TitleMenu {
                 .map(AbstractWidget.class::cast)
                 .toList();
         Optional<AbstractWidget> found = widgets.stream()
-                .filter(widget -> widget.getMessage().getContents() instanceof TranslatableContents contents
-                        && contents.getKey().equals(key))
+                .filter(widget -> key.equals(key(widget)))
                 .findFirst();
         if (found.isEmpty()) {
             LOGGER.warn("The title screen has no \"{}\" button to remove", key);
@@ -72,6 +74,13 @@ final class TitleMenu {
         AbstractWidget kept = left.get(0);
         setX(kept, start);
         kept.setWidth(end - start);
+    }
+
+    private static String key(AbstractWidget widget) {
+        //? if >=1.19 {
+        return widget.getMessage().getContents() instanceof TranslatableContents contents ? contents.getKey() : null;
+        //?} else
+        /*return widget.getMessage() instanceof TranslatableComponent component ? component.getKey() : null;*/
     }
 
     //? if >=1.19.3 {
