@@ -38,7 +38,9 @@ dependencies {
     modLocalRuntime("com.terraformersmc:modmenu:${property("modmenu_version")}") {
         isTransitive = false
     }
-    modLocalRuntime("net.fabricmc.fabric-api:fabric-api:${property("fabric_api_version")}")
+    modLocalRuntime("net.fabricmc.fabric-api:fabric-api:${property("fabric_api_version")}") {
+        exclude(group = "net.fabricmc", module = "fabric-loader")
+    }
     compileOnly("org.jetbrains:annotations:24.1.0")
     testImplementation("org.junit.jupiter:junit-jupiter:${property("junit_version")}")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
