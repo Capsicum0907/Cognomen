@@ -20,10 +20,10 @@ public final class Alias {
     }
 
     public static String current() {
-        if (!CognomenConfig.SPEC.isLoaded()) {
+        if (!Settings.loaded()) {
             return PLACEHOLDER;
         }
-        String configured = CognomenConfig.NAME.get();
+        String configured = Settings.get().name;
         String resolved = resolve(configured);
         if (resolved.equals(configured)) {
             Notices.settle(Notices.Topic.NAME);

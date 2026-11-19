@@ -15,7 +15,6 @@ import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.resources.PlayerSkin;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.fml.loading.FMLPaths;
 
 public final class Look {
     public static final int SKIN_SIZE = 64;
@@ -37,17 +36,17 @@ public final class Look {
     }
 
     public static PlayerSkin forAccount(PlayerSkin steve) {
-        if (!CognomenConfig.SPEC.isLoaded()) {
+        if (!Settings.loaded()) {
             return steve;
         }
-        String configured = CognomenConfig.SKIN.get();
+        String configured = Settings.get().skin;
         if (configured.isEmpty()) {
             Notices.settle(Notices.Topic.SKIN);
             return steve;
         }
-        boolean slim = CognomenConfig.SLIM_ARMS.get();
+        boolean slim = Settings.get().slimArms;
         try {
-            Path path = FMLPaths.GAMEDIR.get().resolve(configured);
+            Path path = Platform.gameDir().resolve(configured);
             FileTime modified = Files.getLastModifiedTime(path);
             Loaded current = loaded;
             if (current != null && current.matches(path, modified, slim)) {

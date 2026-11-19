@@ -1,7 +1,5 @@
 {
   "cognomen.configuration.title": "Cognomen",
-  "cognomen.configuration.section.cognomen.client.toml": "Cognomen",
-  "cognomen.configuration.section.cognomen.client.toml.title": "Cognomen",
   "cognomen.configuration.name": "名前",
   "cognomen.configuration.name.tooltip": "シングルプレイで、次に開くワールドから使われます。1〜16文字で空白なし。日本語も使えます。合わない名前は代わりの名前になります。アカウント名が使われることはありません。",
   "cognomen.toast.unusable.message": "「%s」はプレイヤー名に使えないため、「%s」として遊んでいます。",
