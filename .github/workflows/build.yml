@@ -34,13 +34,16 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
 
       - name: Build and run the unit tests
-        run: bash gradlew build
+        run: bash gradlew build --max-workers=2
 
-      - name: Check that the unit tests ran
+      - name: Check that the unit tests ran on every node
         run: |
-          count=$(cat build/test-results/test/*.xml 2>/dev/null | grep -o 'tests="[0-9]*"' | awk -F'"' '{ sum += $2 } END { print sum + 0 }')
-          if [ "$count" -eq 0 ]; then
-            echo "::error::No unit test results were found - the build passed without testing anything."
-            exit 1
-          fi
-          echo "$count unit tests ran."
+          for dir in versions/*/; do
+            node=$(basename "$dir")
+            count=$(cat "$dir"build/test-results/test/*.xml 2>/dev/null | grep -o 'tests="[0-9]*"' | awk -F'"' '{ sum += $2 } END { print sum + 0 }')
+            if [ "$count" -eq 0 ]; then
+              echo "::error::No unit test results were found for $node - it built without testing anything."
+              exit 1
+            fi
+            echo "$node: $count unit tests ran."
+          done
