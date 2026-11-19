@@ -11,7 +11,10 @@ import com.mojang.authlib.properties.Property;
 import java.util.UUID;
 
 import net.minecraft.ChatFormatting;
+//? if >=1.20.2 {
 import net.minecraft.util.StringUtil;
+//?} else
+/*import net.minecraft.server.network.ServerLoginPacketListenerImpl;*/
 
 import org.junit.jupiter.api.Test;
 
@@ -85,7 +88,10 @@ class AliasTest {
 
     @Test
     void theOnlyNameTheGameAcceptsAndCognomenDoesNotIsTheEmptyOne() {
+        //? if >=1.20.2 {
         assertTrue(StringUtil.isValidPlayerName(""));
+        //?} else
+        /*assertTrue(ServerLoginPacketListenerImpl.isValidUsername(""));*/
         assertFalse(Alias.usable(""));
     }
 

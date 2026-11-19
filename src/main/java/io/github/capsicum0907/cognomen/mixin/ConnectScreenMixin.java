@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.ConnectScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.ServerData;
+//? if >=1.20.5
 import net.minecraft.client.multiplayer.TransferState;
 import net.minecraft.client.multiplayer.resolver.ServerAddress;
 
@@ -19,7 +20,10 @@ abstract class ConnectScreenMixin {
     @Inject(method = "startConnecting", at = @At("HEAD"), cancellable = true)
     private static void cognomen$noMultiplayer(
             Screen parent, Minecraft minecraft, ServerAddress address, ServerData data,
+            //? if >=1.20.5 {
             boolean quickPlay, TransferState transfer, CallbackInfo ci) {
+            //?} else
+            /*boolean quickPlay, CallbackInfo ci) {*/
         minecraft.setScreen(Offline.notice());
         ci.cancel();
     }

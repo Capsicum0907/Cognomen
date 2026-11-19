@@ -13,19 +13,34 @@ import org.slf4j.Logger;
 
 final class Notices {
     private static final Logger LOGGER = LogUtils.getLogger();
+    //? if >=1.20.2
     private static final long SHOWN_FOR_MILLIS = 15000L;
     private static final Map<Topic, String> REPORTED = new ConcurrentHashMap<>();
 
     enum Topic {
+        //? if >=1.20.2 {
         NAME("cognomen.toast.name.title"),
         SKIN("cognomen.toast.skin.title");
+        //?} else {
+        /*NAME("cognomen.toast.name.title", SystemToast.SystemToastIds.PERIODIC_NOTIFICATION),
+        SKIN("cognomen.toast.skin.title", SystemToast.SystemToastIds.PACK_LOAD_FAILURE);
+        *///?}
 
         private final String titleKey;
+        //? if >=1.20.2 {
         private final SystemToast.SystemToastId toast = new SystemToast.SystemToastId(SHOWN_FOR_MILLIS);
 
         Topic(String titleKey) {
             this.titleKey = titleKey;
         }
+        //?} else {
+        /*private final SystemToast.SystemToastIds toast;
+
+        Topic(String titleKey, SystemToast.SystemToastIds toast) {
+            this.titleKey = titleKey;
+            this.toast = toast;
+        }
+        *///?}
     }
 
     private Notices() {

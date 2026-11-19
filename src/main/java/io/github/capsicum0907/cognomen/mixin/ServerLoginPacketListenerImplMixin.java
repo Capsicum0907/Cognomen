@@ -10,11 +10,19 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(ServerLoginPacketListenerImpl.class)
 abstract class ServerLoginPacketListenerImplMixin {
+    //? if >=1.20.2 {
     @Redirect(
             method = "handleHello",
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/util/StringUtil;isValidPlayerName(Ljava/lang/String;)Z"))
+    //?} else {
+    /*@Redirect(
+            method = "handleHello",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/server/network/ServerLoginPacketListenerImpl;isValidUsername(Ljava/lang/String;)Z"))
+    *///?}
     private boolean cognomen$aliasPassesTheLogin(String name) {
         return Alias.usable(name);
     }

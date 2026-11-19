@@ -3,14 +3,17 @@ package io.github.capsicum0907.cognomen;
 import com.mojang.authlib.GameProfile;
 
 import net.minecraft.ChatFormatting;
+//? if >=1.20.2
 import net.minecraft.SharedConstants;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.StringUtil;
 
 public final class Alias {
     public static final String PLACEHOLDER = "Steve";
     public static final String SKIN_PROPERTY = "textures";
+    //? if >=1.20.2 {
     public static final int LENGTH = SharedConstants.MAX_PLAYER_NAME_LENGTH;
+    //?} else
+    /*public static final int LENGTH = 16;*/
 
     private Alias() {
     }
@@ -42,7 +45,8 @@ public final class Alias {
     private static boolean unusable(int character) {
         return character == ChatFormatting.PREFIX_CODE
                 || Character.isISOControl(character)
-                || StringUtil.isWhitespace(character);
+                || Character.isWhitespace(character)
+                || Character.isSpaceChar(character);
     }
 
     public static String resolve(String configured) {
