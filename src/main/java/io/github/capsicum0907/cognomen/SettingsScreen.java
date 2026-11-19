@@ -1,13 +1,24 @@
 package io.github.capsicum0907.cognomen;
 
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.components.EditBox;
-import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
+
+//? if >=1.20 {
+import net.minecraft.client.gui.GuiGraphics;
+//?} else
+/*import com.mojang.blaze3d.vertex.PoseStack;*/
+//? if >=1.19.3 {
+import net.minecraft.client.gui.components.CycleButton;
+import net.minecraft.client.gui.components.Tooltip;
+//?} else {
+/*import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.client.gui.components.AbstractWidget;
+*///?}
 
 public final class SettingsScreen extends Screen {
     private static final int FIELD_WIDTH = 240;
@@ -25,6 +36,20 @@ public final class SettingsScreen extends Screen {
     private String nameText;
     private String skinText;
     private boolean slimArms;
+    //? if <1.19.3 {
+    /*private static final int TOOLTIP_WIDTH = 200;
+    private final List<Hint> hints = new ArrayList<>();
+
+    private static final class Hint {
+        private final AbstractWidget widget;
+        private final Component text;
+
+        private Hint(AbstractWidget widget, Component text) {
+            this.widget = widget;
+            this.text = text;
+        }
+    }
+    *///?}
 
     public SettingsScreen(Screen parent) {
         super(Component.translatable("cognomen.configuration.title"));
@@ -47,36 +72,71 @@ public final class SettingsScreen extends Screen {
     protected void init() {
         int left = left();
         int top = top();
+        //? if <1.19.3
+        /*this.hints.clear();*/
 
         this.name = new EditBox(this.font, left, top + LABEL_GAP, FIELD_WIDTH, FIELD_HEIGHT, label("name"));
         this.name.setMaxLength(Alias.LENGTH);
         this.name.setValue(this.nameText);
         this.name.setResponder(this::nameChanged);
-        this.name.setTooltip(Tooltip.create(tooltip("name")));
         nameChanged(this.nameText);
         addRenderableWidget(this.name);
+        hint(this.name, "name");
 
         EditBox skin = new EditBox(this.font, left, top + ROW_GAP + LABEL_GAP, FIELD_WIDTH, FIELD_HEIGHT, label("skin"));
         skin.setMaxLength(SKIN_PATH_LENGTH);
         skin.setValue(this.skinText);
         skin.setResponder(value -> this.skinText = value);
-        skin.setTooltip(Tooltip.create(tooltip("skin")));
         addRenderableWidget(skin);
+        hint(skin, "skin");
 
-        addRenderableWidget(CycleButton.onOffBuilder(this.slimArms)
-                .withTooltip(value -> Tooltip.create(tooltip("slimArms")))
-                .create(left, top + ROW_GAP * 2 + LABEL_GAP, FIELD_WIDTH, FIELD_HEIGHT, label("slimArms"),
-                        (button, value) -> this.slimArms = value));
+        int toggle = top + ROW_GAP * 2 + LABEL_GAP;
+        //? if >=1.19.3 {
+        hint(addRenderableWidget(CycleButton.onOffBuilder(this.slimArms)
+                .create(left, toggle, FIELD_WIDTH, FIELD_HEIGHT, label("slimArms"),
+                        (button, value) -> this.slimArms = value)), "slimArms");
+        //?} else {
+        /*hint(addRenderableWidget(button(left, toggle, FIELD_WIDTH, slimArmsLabel(), button -> {
+            this.slimArms = !this.slimArms;
+            button.setMessage(slimArmsLabel());
+        })), "slimArms");
+        *///?}
 
         int buttons = top + ROW_GAP * 3 + LABEL_GAP;
-        addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, button -> saveAndClose())
-                .bounds(left, buttons, BUTTON_WIDTH, FIELD_HEIGHT).build());
-        addRenderableWidget(Button.builder(CommonComponents.GUI_CANCEL, button -> onClose())
-                .bounds(left + FIELD_WIDTH - BUTTON_WIDTH, buttons, BUTTON_WIDTH, FIELD_HEIGHT).build());
+        addRenderableWidget(button(left, buttons, BUTTON_WIDTH, CommonComponents.GUI_DONE, button -> saveAndClose()));
+        addRenderableWidget(button(left + FIELD_WIDTH - BUTTON_WIDTH, buttons, BUTTON_WIDTH, CommonComponents.GUI_CANCEL,
+                button -> onClose()));
 
+        //? if >=1.19.4 {
         setInitialFocus(this.name);
+        //?} else {
+        /*setFocused(this.name);
+        this.name.setFocus(true);
+        *///?}
     }
 
+    private static Button button(int x, int y, int width, Component text, Button.OnPress onPress) {
+        //? if >=1.19.3 {
+        return Button.builder(text, onPress).bounds(x, y, width, FIELD_HEIGHT).build();
+        //?} else
+        /*return new Button(x, y, width, FIELD_HEIGHT, text, onPress);*/
+    }
+
+    //? if >=1.19.3 {
+    private static void hint(net.minecraft.client.gui.components.AbstractWidget widget, String key) {
+        widget.setTooltip(Tooltip.create(tooltip(key)));
+    }
+    //?} else {
+    /*private void hint(AbstractWidget widget, String key) {
+        this.hints.add(new Hint(widget, tooltip(key)));
+    }
+
+    private Component slimArmsLabel() {
+        return CommonComponents.optionStatus(label("slimArms"), this.slimArms);
+    }
+    *///?}
+
+    //? if >=1.20 {
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         //? if <1.20.2
@@ -88,6 +148,23 @@ public final class SettingsScreen extends Screen {
         graphics.drawString(this.font, label("name"), left, top, LABEL);
         graphics.drawString(this.font, label("skin"), left, top + ROW_GAP, LABEL);
     }
+    //?} else {
+    /*@Override
+    public void render(PoseStack pose, int mouseX, int mouseY, float partialTick) {
+        renderBackground(pose);
+        super.render(pose, mouseX, mouseY, partialTick);
+        int left = left();
+        int top = top();
+        drawCenteredString(pose, this.font, this.title, this.width / 2, top - ROW_GAP / 2, TEXT);
+        drawString(pose, this.font, label("name"), left, top, LABEL);
+        drawString(pose, this.font, label("skin"), left, top + ROW_GAP, LABEL);
+        for (Hint hint : this.hints) {
+            if (hint.widget.isMouseOver(mouseX, mouseY)) {
+                renderTooltip(pose, this.font.split(hint.text, TOOLTIP_WIDTH), mouseX, mouseY);
+            }
+        }
+    }
+    *///?}
 
     @Override
     public void onClose() {

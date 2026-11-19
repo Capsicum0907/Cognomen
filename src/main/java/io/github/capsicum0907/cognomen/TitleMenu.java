@@ -49,17 +49,17 @@ final class TitleMenu {
         AbstractWidget removed = found.get();
         event.removeListener(removed);
         List<AbstractWidget> row = widgets.stream()
-                .filter(widget -> widget.getY() == removed.getY())
+                .filter(widget -> y(widget) == y(removed))
                 .toList();
         if (row.size() > 1) {
             widen(row, removed);
             return;
         }
         List<AbstractWidget> below = widgets.stream()
-                .filter(widget -> widget.getY() > removed.getY() && !(widget instanceof PlainTextButton))
+                .filter(widget -> y(widget) > y(removed) && !(widget instanceof PlainTextButton))
                 .toList();
-        int gap = below.stream().mapToInt(widget -> widget.getY() - removed.getY()).min().orElse(0);
-        below.forEach(widget -> widget.setY(widget.getY() - gap));
+        int gap = below.stream().mapToInt(widget -> y(widget) - y(removed)).min().orElse(0);
+        below.forEach(widget -> setY(widget, y(widget) - gap));
     }
 
     private static void widen(List<AbstractWidget> row, AbstractWidget removed) {
@@ -67,10 +67,44 @@ final class TitleMenu {
         if (left.size() != 1) {
             return;
         }
-        int start = row.stream().mapToInt(AbstractWidget::getX).min().orElseThrow();
-        int end = row.stream().mapToInt(widget -> widget.getX() + widget.getWidth()).max().orElseThrow();
+        int start = row.stream().mapToInt(TitleMenu::x).min().orElseThrow();
+        int end = row.stream().mapToInt(widget -> x(widget) + widget.getWidth()).max().orElseThrow();
         AbstractWidget kept = left.get(0);
-        kept.setX(start);
+        setX(kept, start);
         kept.setWidth(end - start);
     }
+
+    //? if >=1.19.3 {
+    private static int x(AbstractWidget widget) {
+        return widget.getX();
+    }
+
+    private static int y(AbstractWidget widget) {
+        return widget.getY();
+    }
+
+    private static void setX(AbstractWidget widget, int x) {
+        widget.setX(x);
+    }
+
+    private static void setY(AbstractWidget widget, int y) {
+        widget.setY(y);
+    }
+    //?} else {
+    /*private static int x(AbstractWidget widget) {
+        return widget.x;
+    }
+
+    private static int y(AbstractWidget widget) {
+        return widget.y;
+    }
+
+    private static void setX(AbstractWidget widget, int x) {
+        widget.x = x;
+    }
+
+    private static void setY(AbstractWidget widget, int y) {
+        widget.y = y;
+    }
+    *///?}
 }

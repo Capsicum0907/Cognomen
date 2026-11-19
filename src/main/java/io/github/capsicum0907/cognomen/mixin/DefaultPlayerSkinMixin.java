@@ -24,6 +24,12 @@ import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(DefaultPlayerSkin.class)
 abstract class DefaultPlayerSkinMixin {
+    //? if <1.19.3 {
+    /*private static final ResourceLocation WIDE_STEVE = DefaultPlayerSkin.getDefaultSkin();
+    *///?} else if <1.20.2 {
+    /*private static final ResourceLocation WIDE_STEVE = new ResourceLocation("textures/entity/player/wide/steve.png");
+    *///?}
+
     //? if >=1.20.2 {
     @Shadow
     @Final
@@ -48,8 +54,7 @@ abstract class DefaultPlayerSkinMixin {
                 .orElse(byHash));
     }
     //?} else {
-    /*private static final ResourceLocation WIDE_STEVE = new ResourceLocation("textures/entity/player/wide/steve.png");
-    private static final String WIDE = "default";
+    /*private static final String WIDE = "default";
     private static final String SLIM = "slim";
 
     @Inject(method = "getDefaultSkin(Ljava/util/UUID;)Lnet/minecraft/resources/ResourceLocation;",
