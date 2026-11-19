@@ -13,13 +13,21 @@ import java.util.UUID;
 import net.minecraft.ChatFormatting;
 //? if >=1.20.2 {
 import net.minecraft.util.StringUtil;
-//?} else
+//?} else if >=1.18
 /*import net.minecraft.server.network.ServerLoginPacketListenerImpl;*/
 
 import org.junit.jupiter.api.Test;
 
 class AliasTest {
     private static final UUID ID = UUID.fromString("00000000-0000-4000-8000-000000000001");
+
+    private static String times(String text, int count) {
+        StringBuilder out = new StringBuilder();
+        for (int i = 0; i < count; i++) {
+            out.append(text);
+        }
+        return out.toString();
+    }
 
     private static GameProfile account() {
         GameProfile profile = new GameProfile(ID, "AccountName");
@@ -79,8 +87,8 @@ class AliasTest {
 
     @Test
     void usableCountsCharactersNotBytes() {
-        assertTrue(Alias.usable("あ".repeat(Alias.LENGTH)));
-        assertFalse(Alias.usable("あ".repeat(Alias.LENGTH + 1)));
+        assertTrue(Alias.usable(times("あ", Alias.LENGTH)));
+        assertFalse(Alias.usable(times("あ", Alias.LENGTH + 1)));
     }
 
     @Test
@@ -93,7 +101,7 @@ class AliasTest {
     void theOnlyNameTheGameAcceptsAndCognomenDoesNotIsTheEmptyOne() {
         //? if >=1.20.2 {
         assertTrue(StringUtil.isValidPlayerName(""));
-        //?} else
+        //?} else if >=1.18
         /*assertTrue(ServerLoginPacketListenerImpl.isValidUsername(""));*/
         assertFalse(Alias.usable(""));
     }

@@ -1,7 +1,5 @@
 package io.github.capsicum0907.cognomen;
 
-import com.mojang.logging.LogUtils;
-
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -9,10 +7,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.toasts.SystemToast;
 import net.minecraft.network.chat.Component;
 
-import org.slf4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 final class Notices {
-    private static final Logger LOGGER = LogUtils.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     //? if >=1.20.2
     private static final long SHOWN_FOR_MILLIS = 15000L;
     private static final Map<Topic, String> REPORTED = new ConcurrentHashMap<>();

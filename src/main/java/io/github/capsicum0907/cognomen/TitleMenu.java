@@ -1,79 +1,105 @@
 package io.github.capsicum0907.cognomen;
 
-import com.mojang.logging.LogUtils;
-
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import net.minecraft.client.gui.components.AbstractWidget;
-import net.minecraft.client.gui.components.PlainTextButton;
 import net.minecraft.client.gui.screens.TitleScreen;
 //? if >=1.19 {
 import net.minecraft.network.chat.contents.TranslatableContents;
 //?} else
 /*import net.minecraft.network.chat.TranslatableComponent;*/
+//? if >=1.18
+import net.minecraft.client.gui.components.PlainTextButton;
 //? if neoforge {
 import net.neoforged.neoforge.client.event.ScreenEvent;
-//?} else if forge
-/*import net.minecraftforge.client.event.ScreenEvent;*/
+//?} else if forge && >=1.18 {
+/*import net.minecraftforge.client.event.ScreenEvent;
+*///?} else if forge
+/*import net.minecraftforge.client.event.GuiScreenEvent;*/
 
-import org.slf4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 final class TitleMenu {
-    private static final Logger LOGGER = LogUtils.getLogger();
-    private static final Set<String> ONLINE_KEYS = Set.of("menu.multiplayer", "menu.online");
+    private static final Logger LOGGER = LogManager.getLogger();
+    private static final List<String> ONLINE_KEYS = Arrays.asList("menu.multiplayer", "menu.online");
 
     private TitleMenu() {
     }
 
+    //? if >=1.18 {
     static void withoutOnlinePlay(ScreenEvent.Init.Post event) {
         if (!(event.getScreen() instanceof TitleScreen)) {
             return;
         }
-        for (String key : ONLINE_KEYS) {
-            remove(event, key);
-        }
-    }
-
-    private static void remove(ScreenEvent.Init.Post event, String key) {
         List<AbstractWidget> widgets = event.getListenersList().stream()
                 .filter(AbstractWidget.class::isInstance)
                 .map(AbstractWidget.class::cast)
-                .toList();
-        Optional<AbstractWidget> found = widgets.stream()
+                .collect(Collectors.toList());
+        strip(widgets, event::removeListener);
+    }
+    //?} else {
+    /*static void withoutOnlinePlay(GuiScreenEvent.InitGuiEvent.Post event) {
+        if (!(event.getGui() instanceof TitleScreen)) {
+            return;
+        }
+        strip(new ArrayList<>(event.getWidgetList()), event::removeWidget);
+    }
+    *///?}
+
+    private static void strip(List<AbstractWidget> widgets, Consumer<AbstractWidget> removal) {
+        List<AbstractWidget> remaining = new ArrayList<>(widgets);
+        for (String key : ONLINE_KEYS) {
+            remove(remaining, removal, key);
+        }
+    }
+
+    private static void remove(List<AbstractWidget> widgets, Consumer<AbstractWidget> removal, String key) {
+        AbstractWidget removed = widgets.stream()
                 .filter(widget -> key.equals(key(widget)))
-                .findFirst();
-        if (found.isEmpty()) {
+                .findFirst()
+                .orElse(null);
+        if (removed == null) {
             LOGGER.warn("The title screen has no \"{}\" button to remove", key);
             return;
         }
-        AbstractWidget removed = found.get();
-        event.removeListener(removed);
+        removal.accept(removed);
         List<AbstractWidget> row = widgets.stream()
                 .filter(widget -> y(widget) == y(removed))
-                .toList();
+                .collect(Collectors.toList());
+        widgets.remove(removed);
         if (row.size() > 1) {
             widen(row, removed);
             return;
         }
         List<AbstractWidget> below = widgets.stream()
-                .filter(widget -> y(widget) > y(removed) && !(widget instanceof PlainTextButton))
-                .toList();
+                .filter(widget -> y(widget) > y(removed) && !isCopyright(widget))
+                .collect(Collectors.toList());
         int gap = below.stream().mapToInt(widget -> y(widget) - y(removed)).min().orElse(0);
         below.forEach(widget -> setY(widget, y(widget) - gap));
     }
 
     private static void widen(List<AbstractWidget> row, AbstractWidget removed) {
-        List<AbstractWidget> left = row.stream().filter(widget -> widget != removed).toList();
+        List<AbstractWidget> left = row.stream().filter(widget -> widget != removed).collect(Collectors.toList());
         if (left.size() != 1) {
             return;
         }
-        int start = row.stream().mapToInt(TitleMenu::x).min().orElseThrow();
-        int end = row.stream().mapToInt(widget -> x(widget) + widget.getWidth()).max().orElseThrow();
+        int start = row.stream().mapToInt(TitleMenu::x).min().getAsInt();
+        int end = row.stream().mapToInt(widget -> x(widget) + widget.getWidth()).max().getAsInt();
         AbstractWidget kept = left.get(0);
         setX(kept, start);
         kept.setWidth(end - start);
+    }
+
+    private static boolean isCopyright(AbstractWidget widget) {
+        //? if >=1.18 {
+        return widget instanceof PlainTextButton;
+        //?} else
+        /*return false;*/
     }
 
     private static String key(AbstractWidget widget) {

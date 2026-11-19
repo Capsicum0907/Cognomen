@@ -36,7 +36,10 @@ abstract class MinecraftMixin {
 
     @ModifyVariable(method = "setScreen", at = @At("HEAD"), argsOnly = true)
     private Screen cognomen$noMultiplayer(Screen next) {
+        //? if >=1.17 {
         if (next instanceof JoinMultiplayerScreen || next instanceof RealmsMainScreen) {
+        //?} else
+        /*if (next instanceof JoinMultiplayerScreen || next instanceof RealmsMainScreen || next instanceof net.minecraft.client.gui.screens.ConnectScreen) {*/
             return Offline.notice();
         }
         return next;

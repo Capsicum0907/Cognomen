@@ -1,7 +1,5 @@
 package io.github.capsicum0907.cognomen;
 
-import com.mojang.logging.LogUtils;
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -11,7 +9,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public final class Settings {
     public static final String FILE = Cognomen.MODID + "-client.toml";
@@ -20,7 +19,7 @@ public final class Settings {
     static final String SKIN = "skin";
     static final String SLIM_ARMS = "slimArms";
 
-    private static final Logger LOGGER = LogUtils.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
     private static volatile Values current;
 
     public static final class Values {

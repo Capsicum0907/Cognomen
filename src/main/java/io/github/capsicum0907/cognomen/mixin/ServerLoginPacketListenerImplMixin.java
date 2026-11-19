@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(ServerLoginPacketListenerImpl.class)
 abstract class ServerLoginPacketListenerImplMixin {
+    //? if >=1.18 {
     //? if >=1.20.2 {
     @Redirect(
             method = "handleHello",
@@ -26,4 +27,5 @@ abstract class ServerLoginPacketListenerImplMixin {
     private boolean cognomen$aliasPassesTheLogin(String name) {
         return Alias.usable(name);
     }
+    //?}
 }
