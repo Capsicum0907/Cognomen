@@ -33,6 +33,7 @@ neoForge {
     runs {
         register("client") {
             client()
+            findProperty("quickPlay")?.let { programArguments.addAll("--quickPlaySingleplayer", it.toString()) }
         }
 
         configureEach {

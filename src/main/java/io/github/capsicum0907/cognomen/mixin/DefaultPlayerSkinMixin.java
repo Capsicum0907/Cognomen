@@ -1,8 +1,5 @@
 package io.github.capsicum0907.cognomen.mixin;
 
-import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import com.llamalad7.mixinextras.sugar.Local;
-
 import java.util.Arrays;
 import java.util.UUID;
 
@@ -16,6 +13,8 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(DefaultPlayerSkin.class)
 abstract class DefaultPlayerSkinMixin {
@@ -23,14 +22,16 @@ abstract class DefaultPlayerSkinMixin {
     @Final
     private static PlayerSkin[] DEFAULT_SKINS;
 
-    @ModifyReturnValue(method = "get(Ljava/util/UUID;)Lnet/minecraft/client/resources/PlayerSkin;", at = @At("RETURN"))
-    private static PlayerSkin cognomen$steveForTheAccount(PlayerSkin byHash, @Local(argsOnly = true) UUID id) {
+    @Inject(method = "get(Ljava/util/UUID;)Lnet/minecraft/client/resources/PlayerSkin;",
+            at = @At("RETURN"), cancellable = true)
+    private static void cognomen$steveForTheAccount(UUID id, CallbackInfoReturnable<PlayerSkin> cir) {
         if (!id.equals(Minecraft.getInstance().getUser().getProfileId())) {
-            return byHash;
+            return;
         }
-        return Look.forAccount(Arrays.stream(DEFAULT_SKINS)
+        PlayerSkin byHash = cir.getReturnValue();
+        cir.setReturnValue(Look.forAccount(Arrays.stream(DEFAULT_SKINS)
                 .filter(skin -> skin.texture().equals(DefaultPlayerSkin.getDefaultTexture()))
                 .findFirst()
-                .orElse(byHash));
+                .orElse(byHash)));
     }
 }
