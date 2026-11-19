@@ -24,14 +24,14 @@ import net.neoforged.neoforge.client.event.ScreenEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-final class TitleMenu {
+public final class TitleMenu {
     private static final Logger LOGGER = LogManager.getLogger();
     private static final List<String> ONLINE_KEYS = Arrays.asList("menu.multiplayer", "menu.online");
 
     private TitleMenu() {
     }
 
-    //? if >=1.18 {
+    //? if !fabric && >=1.18 {
     static void withoutOnlinePlay(ScreenEvent.Init.Post event) {
         if (!(event.getScreen() instanceof TitleScreen)) {
             return;
@@ -42,7 +42,7 @@ final class TitleMenu {
                 .collect(Collectors.toList());
         strip(widgets, event::removeListener);
     }
-    //?} else {
+    //?} else if !fabric {
     /*static void withoutOnlinePlay(GuiScreenEvent.InitGuiEvent.Post event) {
         if (!(event.getGui() instanceof TitleScreen)) {
             return;
@@ -51,7 +51,7 @@ final class TitleMenu {
     }
     *///?}
 
-    private static void strip(List<AbstractWidget> widgets, Consumer<AbstractWidget> removal) {
+    public static void strip(List<AbstractWidget> widgets, Consumer<AbstractWidget> removal) {
         List<AbstractWidget> remaining = new ArrayList<>(widgets);
         for (String key : ONLINE_KEYS) {
             remove(remaining, removal, key);

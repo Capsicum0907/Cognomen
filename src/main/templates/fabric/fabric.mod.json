@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "${mod_id}",
+  "version": "${mod_version}",
+  "name": "${mod_name}",
+  "description": ${mod_description},
+  "authors": [${mod_authors}],
+  "license": "${mod_license}",
+  "environment": "client",
+  "entrypoints": {
+    "client": ["io.github.capsicum0907.cognomen.Cognomen"],
+    "modmenu": ["io.github.capsicum0907.cognomen.ModMenuEntry"]
+  },
+  "mixins": ["${mod_id}.mixins.json"],
+  "depends": {
+    "fabricloader": "${loader_version_range}",
+    "minecraft": "${minecraft_version_range}",
+    "java": ">=${java_version}"
+  }
+}

@@ -11,8 +11,6 @@ import java.nio.file.Path;
 import java.nio.file.attribute.FileTime;
 import java.util.UUID;
 
-import javax.annotation.Nullable;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.network.chat.Component;
@@ -67,7 +65,6 @@ public final class Look {
         /*return id.equals(Minecraft.getInstance().getUser().getGameProfile().getId());*/
     }
 
-    @Nullable
     public static Custom custom() {
         if (!Settings.loaded()) {
             return null;

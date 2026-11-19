@@ -23,12 +23,16 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.fml.network.FMLNetworkConstants;
-*///?}
+*///?} else if fabric
+/*import net.fabricmc.api.ClientModInitializer;*/
 
 //? if neoforge {
 @Mod(value = Cognomen.MODID, dist = Dist.CLIENT)
 //?} else if forge
 /*@Mod(Cognomen.MODID)*/
+//? if fabric {
+/*public final class Cognomen implements ClientModInitializer {
+*///?} else
 public final class Cognomen {
     public static final String MODID = "cognomen";
 
@@ -59,6 +63,11 @@ public final class Cognomen {
         ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.CONFIGGUIFACTORY,
                 () -> (minecraft, parent) -> new SettingsScreen(parent));
         MinecraftForge.EVENT_BUS.addListener(TitleMenu::withoutOnlinePlay);
+    }
+    *///?} else if fabric {
+    /*@Override
+    public void onInitializeClient() {
+        Settings.load();
     }
     *///?}
 }
